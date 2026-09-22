@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#07131F] text-[#F3F7FA] font-sans antialiased overflow-hidden select-none;
+  }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #07131F;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #203B4D;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #20A4F3;
+}
+
+/* OpenLayers Custom Overrides */
+.ol-control {
+  background-color: transparent !important;
+}
+
+.ol-touch .ol-control {
+  background-color: transparent !important;
+}
