@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "p16_titulo_jose_21s",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::31981" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 16, "classe": "Titulo Definitivo de Jose Afonso", "rotulo": "Titulo Definitivo de Jose Afonso", "seq_pdf": "2275", "metodo": "Reconstituição Vetorial Afim", "situacao": "DERIV_PDF", "recortado": 1, "area_m2": 26335.578, "area_ha": 2.633558, "id_imovel": "T16-JOSE", "documento": "Resposta SECT_autos.pdf", "folha_processo": 109, "escala": "1:2.000", "pontos_controle": 8, "rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 172237.716978339885827, 9661506.548270070925355 ], [ 172286.298814189358382, 9661603.835714429616928 ], [ 172504.175255898269825, 9661527.626905946061015 ], [ 172409.331501698325155, 9661415.897114623337984 ], [ 172237.716978339885827, 9661506.548270070925355 ] ] ] } }
+]
+}

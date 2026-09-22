@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "p15_moldura_21s",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::31981" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 15, "documento": "Resposta SECT_autos.pdf", "tipo": "Moldura Cartográfica" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 178519.029038579406915, 9659537.666405633091927 ], [ 178519.029009933263296, 9655440.563821461051702 ], [ 172800.939578282996081, 9655440.563821466639638 ], [ 172800.9396069291397, 9659537.666405638679862 ], [ 178519.029038579406915, 9659537.666405633091927 ] ] ] } }
+]
+}
