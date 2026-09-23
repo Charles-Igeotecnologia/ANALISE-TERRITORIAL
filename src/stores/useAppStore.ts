@@ -22,8 +22,8 @@ interface AppState {
   p16Opacity: number;
   setP16Opacity: (opacity: number) => void;
 
-  activeBasemap: 'esri-satellite' | 'cartodb-dark' | 'osm';
-  setActiveBasemap: (basemap: 'esri-satellite' | 'cartodb-dark' | 'osm') => void;
+  activeBasemap: 'google-hybrid' | 'esri-satellite' | 'cartodb-dark' | 'osm';
+  setActiveBasemap: (basemap: 'google-hybrid' | 'esri-satellite' | 'cartodb-dark' | 'osm') => void;
 
   layers: LayerItem[];
   toggleLayerVisibility: (layerId: string) => void;
@@ -97,7 +97,7 @@ export const useAppStore = create<AppState>((set) => ({
   p16Opacity: 0.9,
   setP16Opacity: (opacity) => set({ p16Opacity: opacity }),
 
-  activeBasemap: 'esri-satellite',
+  activeBasemap: 'google-hybrid',
   setActiveBasemap: (basemap) => set({ activeBasemap: basemap }),
 
   layers: initialLayers,

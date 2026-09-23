@@ -45,11 +45,21 @@ export const MapWorkspace: React.FC = () => {
       autoPan: { animation: { duration: 250 } },
     });
 
-    // 1. Basemaps (Esri World Imagery Satélite HD & Satélite Híbrido)
+    // 1. Basemaps (Google Satélite Híbrido, Esri World Imagery HD & OpenStreetMap)
+    const googleHybrid = new TileLayer({
+      source: new XYZ({
+        url: 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+        attributions: '&copy; Google Satellite Híbrido',
+        maxZoom: 20,
+      }),
+      visible: activeBasemap === 'google-hybrid' || activeBasemap === undefined,
+    });
+
     const esriSatellite = new TileLayer({
       source: new XYZ({
         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         attributions: '&copy; Esri World Imagery (Satélite HD)',
+        maxZoom: 19,
       }),
       visible: activeBasemap === 'esri-satellite',
     });
@@ -68,18 +78,19 @@ export const MapWorkspace: React.FC = () => {
 
     const hybridGroup = new LayerGroup({
       layers: [esriSatellite, esriTransportation, esriPlaces],
-      visible: activeBasemap === 'cartodb-dark', // Usado como Híbrido
+      visible: activeBasemap === 'cartodb-dark',
     });
 
     const osm = new TileLayer({
       source: new XYZ({
-        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
         attributions: '&copy; OpenStreetMap contributors',
       }),
       visible: activeBasemap === 'osm',
     });
 
     basemapLayersRef.current = {
+      'google-hybrid': googleHybrid,
       'esri-satellite': esriSatellite,
       'cartodb-dark': hybridGroup,
       'osm': osm,
@@ -87,7 +98,7 @@ export const MapWorkspace: React.FC = () => {
 
     const map = new Map({
       target: mapRef.current,
-      layers: [esriSatellite, hybridGroup, osm],
+      layers: [googleHybrid, esriSatellite, hybridGroup, osm],
       overlays: [overlayPopup],
       view: new View({
         center: fromLonLat([-59.945, -3.075]),

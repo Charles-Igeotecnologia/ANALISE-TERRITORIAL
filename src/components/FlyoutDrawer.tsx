@@ -132,16 +132,16 @@ export const FlyoutDrawer: React.FC = () => {
         {activeFlyout === 'basemaps' && (
           <div className="space-y-3">
             {[
-              { id: 'cartodb-dark', name: 'CartoDB Dark (Tema Escuro SIG)', desc: 'Alto contraste para polígonos e eixos' },
-              { id: 'esri-satellite', name: 'Esri World Imagery (Satélite)', desc: 'Imagens orbitais de alta resolução' },
-              { id: 'osm', name: 'OpenStreetMap Standard', desc: 'Mapa urbano de ruas e logradouros' },
+              { id: 'google-hybrid', name: '🗺️ Satélite Híbrido HD', desc: 'Satélite de alta resolução com vias, logradouros e bairros' },
+              { id: 'esri-satellite', name: '🛰️ Esri World Imagery', desc: 'Imagens orbitais puras em alta resolução' },
+              { id: 'osm', name: '🧭 OpenStreetMap Standard', desc: 'Mapa urbano de ruas e vetorização municipal' },
             ].map(b => (
               <button
                 key={b.id}
                 onClick={() => setActiveBasemap(b.id as any)}
                 className={`w-full p-3 rounded-lg border text-left transition ${
                   activeBasemap === b.id
-                    ? 'bg-[#122A3A] border-[#20A4F3] text-[#F3F7FA]'
+                    ? 'bg-[#122A3A] border-[#20A4F3] text-[#F3F7FA] font-bold shadow'
                     : 'bg-[#07131F]/50 border-[#203B4D] text-[#9EB3C1] hover:bg-[#122A3A]/40'
                 }`}
               >
