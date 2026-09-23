@@ -154,7 +154,7 @@ export const DownloadsModal: React.FC = () => {
                 <span>Central de Downloads & Repositório Documental</span>
                 <span className="text-[10px] bg-[#39C6B4]/20 text-[#39C6B4] px-2 py-0.5 rounded font-mono border border-[#39C6B4]/30">Acervo SECT</span>
               </h3>
-              <p className="text-[11px] text-[#9EB3C1]">Download de Arquivos Vetoriais (KML/GeoJSON) e Documentos PDF Contidos no Projeto</p>
+              <p className="text-[11px] text-[#9EB3C1]">Download de Arquivos Vetoriais (KML / Shapefile) e Documentos PDF Contidos no Projeto</p>
             </div>
           </div>
           <button
@@ -234,11 +234,11 @@ export const DownloadsModal: React.FC = () => {
             </div>
           </div>
 
-          {/* SEÇÃO 2: ARQUIVOS VETORIAIS (KML E GEOJSON) */}
+          {/* SEÇÃO 2: ARQUIVOS VETORIAIS (KML E SHAPEFILE) */}
           <div className="space-y-3 pt-2">
             <h4 className="font-bold text-xs text-[#39C6B4] uppercase tracking-wider font-mono flex items-center space-x-2 border-b border-[#203B4D] pb-1.5">
               <Map className="w-4 h-4 text-[#39C6B4]" />
-              <span>2. Pacotes de Arquivos Vetoriais (KML / GeoJSON)</span>
+              <span>2. Pacotes de Arquivos Vetoriais (KML / ESRI Shapefile)</span>
             </h4>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -246,7 +246,7 @@ export const DownloadsModal: React.FC = () => {
               <div className="bg-[#122A3A] p-3.5 rounded-xl border border-[#39C6B4]/40 space-y-2">
                 <div className="flex items-center justify-between font-mono text-[10px] text-[#39C6B4]">
                   <span className="font-bold uppercase">Formato KML (Google Earth / QGIS)</span>
-                  <span className="bg-[#39C6B4]/20 text-[#39C6B4] px-1.5 py-0.5 rounded font-mono border border-[#39C6B4]/30">Recomendado</span>
+                  <span className="bg-[#39C6B4]/20 text-[#39C6B4] px-1.5 py-0.5 rounded font-mono border border-[#39C6B4]/30">Google Earth</span>
                 </div>
                 <h5 className="font-bold text-xs text-[#F3F7FA]">SECT_Reconstituicao_Vetores_P15_P16.kml</h5>
                 <p className="text-[11px] text-[#9EB3C1] leading-relaxed">
@@ -261,23 +261,24 @@ export const DownloadsModal: React.FC = () => {
                 </button>
               </div>
 
-              {/* Download Pacote GeoJSON */}
-              <div className="bg-[#122A3A] p-3.5 rounded-xl border border-[#203B4D] space-y-2">
+              {/* Download Pacote Shapefile */}
+              <div className="bg-[#122A3A] p-3.5 rounded-xl border border-[#20A4F3]/40 space-y-2">
                 <div className="flex items-center justify-between font-mono text-[10px] text-[#20A4F3]">
-                  <span className="font-bold uppercase">Formato GeoJSON (GIS Web & Pro)</span>
-                  <span className="bg-[#07131F] text-[#20A4F3] px-1.5 py-0.5 rounded border border-[#203B4D]">SIRGAS 2000</span>
+                  <span className="font-bold uppercase">Formato Shapefile (ESRI Shapefile .zip)</span>
+                  <span className="bg-[#20A4F3]/20 text-[#20A4F3] px-1.5 py-0.5 rounded font-mono border border-[#20A4F3]/30">GIS Padrão</span>
                 </div>
-                <h5 className="font-bold text-xs text-[#F3F7FA]">Acervo_Vetorial_Completo_34_Camadas.geojson</h5>
+                <h5 className="font-bold text-xs text-[#F3F7FA]">SECT_Vetores_Shapefile_P15_P16.zip</h5>
                 <p className="text-[11px] text-[#9EB3C1] leading-relaxed">
-                  Todos os 34 arquivos GeoJSON das poligonais reconstituídas, molduras, interseções calculadas e apoio geográfico.
+                  Pacote completo com as 34 camadas vetoriais no formato ESRI Shapefile (.shp, .shx, .dbf, .prj) georreferenciadas em SIRGAS 2000 / UTM 21S (EPSG:31981).
                 </p>
-                <button
-                  onClick={handleDownloadKML}
+                <a
+                  href="docs/SECT_Vetores_Shapefile_P15_P16.zip"
+                  download="SECT_Vetores_Shapefile_P15_P16.zip"
                   className="w-full py-2 px-3 bg-[#20A4F3] hover:bg-[#1B8CD0] text-[#07131F] font-bold rounded-lg text-xs transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#20A4F3]/20 mt-2"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Baixar Pacote Vetorial (.kml/.geojson)</span>
-                </button>
+                  <span>Baixar Pacote Shapefile (.zip)</span>
+                </a>
               </div>
             </div>
           </div>
@@ -285,19 +286,33 @@ export const DownloadsModal: React.FC = () => {
           {/* SEÇÃO 3: DOWNLOAD INDIVIDUAL POR CAMADA */}
           <div className="space-y-3 pt-2">
             <h4 className="font-bold text-xs text-[#F2A93B] uppercase tracking-wider font-mono border-b border-[#203B4D] pb-1.5">
-              3. Downloads Individuais por Camada Reconstituída
+              3. Downloads Individuais das Camadas Vetoriais Reconstituídas
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 font-mono text-[11px]">
               {layers.filter(l => l.geojsonPath).map((l) => (
-                <a
+                <div
                   key={l.id}
-                  href={l.geojsonPath}
-                  download={`${l.id}.geojson`}
                   className="bg-[#07131F] p-2 rounded-lg border border-[#203B4D] flex items-center justify-between hover:border-[#20A4F3]/60 transition group"
                 >
                   <span className="text-[#9EB3C1] truncate group-hover:text-[#F3F7FA]">{l.name}</span>
-                  <Download className="w-3.5 h-3.5 text-[#20A4F3] shrink-0 ml-2" />
-                </a>
+                  <div className="flex items-center space-x-1 ml-2">
+                    <button
+                      onClick={handleDownloadKML}
+                      title="Baixar KML"
+                      className="px-1.5 py-0.5 bg-[#39C6B4]/20 hover:bg-[#39C6B4]/40 text-[#39C6B4] rounded text-[10px] font-bold"
+                    >
+                      KML
+                    </button>
+                    <a
+                      href="docs/SECT_Vetores_Shapefile_P15_P16.zip"
+                      download="SECT_Vetores_Shapefile_P15_P16.zip"
+                      title="Baixar Shapefile ZIP"
+                      className="px-1.5 py-0.5 bg-[#20A4F3]/20 hover:bg-[#20A4F3]/40 text-[#20A4F3] rounded text-[10px] font-bold"
+                    >
+                      SHP
+                    </a>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -308,7 +323,7 @@ export const DownloadsModal: React.FC = () => {
         <div className="p-4 border-t border-[#203B4D] bg-[#07131F] flex items-center justify-between">
           <span className="text-[11px] text-[#9EB3C1] font-mono flex items-center space-x-1">
             <ShieldCheck className="w-3.5 h-3.5 text-[#46C37B]" />
-            <span>Repositório Auditado e Georreferenciado em EPSG:31981</span>
+            <span>Repositório Auditado e Georreferenciado em EPSG:31981 (SIRGAS 2000 / UTM 21S)</span>
           </span>
           <button
             onClick={() => setIsDownloadsModalOpen(false)}
