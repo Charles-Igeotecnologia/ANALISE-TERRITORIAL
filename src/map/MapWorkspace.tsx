@@ -12,7 +12,6 @@ import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
 import { fromLonLat, transform } from 'ol/proj';
 import Feature from 'ol/Feature';
 
-// Configurar Projeções ao carregar
 setupProjections();
 
 export const MapWorkspace: React.FC = () => {
@@ -35,21 +34,21 @@ export const MapWorkspace: React.FC = () => {
   useEffect(() => {
     if (!mapRef.current) return;
 
-    // 1. Basemaps
-    const cartoDark = new TileLayer({
-      source: new XYZ({
-        url: 'https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-        attributions: '&copy; OpenStreetMap &copy; CARTO',
-      }),
-      visible: activeBasemap === 'cartodb-dark',
-    });
-
+    // 1. Basemaps (Esri World Imagery Satélite HD como Padrão)
     const esriSatellite = new TileLayer({
       source: new XYZ({
         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        attributions: '&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        attributions: '&copy; Esri World Imagery (Satélite HD)',
       }),
       visible: activeBasemap === 'esri-satellite',
+    });
+
+    const cartoDark = new TileLayer({
+      source: new XYZ({
+        url: 'https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        attributions: '&copy; CARTO',
+      }),
+      visible: activeBasemap === 'cartodb-dark',
     });
 
     const osm = new TileLayer({
@@ -61,15 +60,14 @@ export const MapWorkspace: React.FC = () => {
     });
 
     basemapLayersRef.current = {
-      'cartodb-dark': cartoDark,
       'esri-satellite': esriSatellite,
+      'cartodb-dark': cartoDark,
       'osm': osm,
     };
 
-    // 2. Criar Instância do Mapa em EPSG:3857 (Web Mercator com suporte a EPSG:31981)
     const map = new Map({
       target: mapRef.current,
-      layers: [cartoDark, esriSatellite, osm],
+      layers: [esriSatellite, cartoDark, osm],
       view: new View({
         center: fromLonLat([-59.945, -3.075]),
         zoom: 13,
@@ -92,7 +90,7 @@ export const MapWorkspace: React.FC = () => {
         format: geoJsonFormat,
       });
 
-      const getLayerStyle = (feature: Feature) => {
+      const getLayerStyle = () => {
         const color = layerDef.color || '#20A4F3';
         const opacity = layerDef.opacity ?? 0.7;
 
@@ -116,7 +114,6 @@ export const MapWorkspace: React.FC = () => {
           });
         }
 
-        // Polígono por Padrão
         return new Style({
           stroke: new Stroke({
             color: color,
@@ -154,7 +151,6 @@ export const MapWorkspace: React.FC = () => {
         lat: lonLat[1],
       });
 
-      // Calcular Escala Aproximada
       const view = map.getView();
       const resolution = view.getResolution() || 1;
       const mpu = view.getProjection().getMetersPerUnit() || 1;
@@ -162,15 +158,22 @@ export const MapWorkspace: React.FC = () => {
       setCurrentScale(scale > 0 ? scale : 2500);
     });
 
-    // 5. Interação de Clique para Inspeção Contextual (Revelação Progressiva)
+    // 5. CORREÇÃO CRÍTICA DE INTERATIVIDADE DO CLIQUE
+    // Filtrar e ignorar camadas de moldura / recorte_analise / areas_excluidas
     map.on('singleclick', (evt) => {
       let foundFeature: Feature | null = null;
       let foundLayerId: string | null = null;
 
       map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
-        if (!foundFeature && layer) {
-          foundFeature = feature as Feature;
-          foundLayerId = layer.get('id') as string;
+        if (layer) {
+          const lId = layer.get('id') as string;
+          // IGNORAR MOLDURAS E REFORTES GERAIS PARA NÃO BLOQUEAR OS IMÓVEIS TEMÁTICOS!
+          const isBackgroundLayer = lId.includes('moldura') || lId.includes('recorte') || lId.includes('bairros') || lId.includes('logradouros') || lId.includes('excluidas');
+          
+          if (!isBackgroundLayer && !foundFeature) {
+            foundFeature = feature as Feature;
+            foundLayerId = lId;
+          }
         }
       });
 
@@ -195,6 +198,10 @@ export const MapWorkspace: React.FC = () => {
           overlapPerc = 97.02;
           overlapHa = 2.55;
           overlapClass = 'Terra Devoluta (Proc. C39419 - Tancredo Neves)';
+        } else if (layerIdStr.includes('uniao')) {
+          overlapPerc = 58.73;
+          overlapHa = 384.55;
+          overlapClass = 'Título Cosme Ferreira Filho';
         }
 
         setSelectedFeature({
@@ -229,14 +236,12 @@ export const MapWorkspace: React.FC = () => {
     };
   }, []);
 
-  // Atualizar Visibilidade do Basemap
   useEffect(() => {
     Object.entries(basemapLayersRef.current).forEach(([key, layer]) => {
       layer.setVisible(key === activeBasemap);
     });
   }, [activeBasemap]);
 
-  // Atualizar Visibilidade e Opacidade das Camadas
   useEffect(() => {
     layers.forEach((layerDef) => {
       const vecLayer = vectorLayersRef.current[layerDef.id];
@@ -254,7 +259,6 @@ export const MapWorkspace: React.FC = () => {
     });
   }, [layers, p15Opacity, p16Opacity]);
 
-  // Atualizar Foco da Câmera por Página
   useEffect(() => {
     if (!mapInstanceRef.current) return;
     const view = mapInstanceRef.current.getView();
