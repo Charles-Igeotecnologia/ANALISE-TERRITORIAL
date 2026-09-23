@@ -76,6 +76,17 @@ export const Header: React.FC = () => {
 
       {/* Ações Direitas & Status CRS */}
       <div className="flex items-center space-x-3">
+        {/* Toggle de Rótulos (Zoom > 14) */}
+        <label className="hidden sm:flex items-center space-x-2 bg-[#0C1D2B] px-2.5 py-1 rounded-md border border-[#203B4D] text-xs cursor-pointer hover:border-[#20A4F3]/50 transition">
+          <input 
+            type="checkbox" 
+            checked={useAppStore((s) => s.showLabels)}
+            onChange={(e) => useAppStore.getState().setShowLabels(e.target.checked)}
+            className="rounded border-[#203B4D] text-[#20A4F3] focus:ring-0 bg-[#07131F]"
+          />
+          <span className="text-[#9EB3C1] text-[11px] font-mono">Rótulos</span>
+        </label>
+
         {/* Status CRS Badge */}
         <div className="hidden lg:flex items-center space-x-2 bg-[#0C1D2B] px-3 py-1 rounded-md border border-[#203B4D] text-xs font-mono">
           <span className="text-[#9EB3C1]">CRS:</span>

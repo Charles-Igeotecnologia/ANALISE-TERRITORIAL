@@ -174,6 +174,19 @@ export const FeatureInspector: React.FC = () => {
 
             {/* BOTÕES DE AÇÃO RÁPIDA */}
             <div className="space-y-2 pt-1">
+              <a
+                href={selectedFeature.pagina === 16 ? "https://www.google.com/maps/@-3.058,-59.960,17z/data=!3m1!1e3" : "https://www.google.com/maps/@-3.090,-59.925,17z/data=!3m1!1e3"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2 px-3 bg-[#122A3A] hover:bg-[#203B4D] text-[#39C6B4] border border-[#203B4D] rounded-md font-medium text-xs transition flex items-center justify-between group"
+              >
+                <span className="flex items-center space-x-2">
+                  <ExternalLink className="w-3.5 h-3.5 text-[#39C6B4]" />
+                  <span>[ Abrir no Google Maps Satélite ]</span>
+                </span>
+                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
+              </a>
+
               <button
                 onClick={() => setIsEvidenceModalOpen(true)}
                 className="w-full py-2 px-3 bg-[#122A3A] hover:bg-[#203B4D] text-[#20A4F3] border border-[#203B4D] rounded-md font-medium text-xs transition flex items-center justify-between"

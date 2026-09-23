@@ -32,7 +32,8 @@ export const MapWorkspace: React.FC = () => {
     setCurrentCoords, 
     setCurrentScale,
     p15Opacity,
-    p16Opacity
+    p16Opacity,
+    showLabels
   } = useAppStore();
 
   useEffect(() => {
@@ -134,13 +135,19 @@ export const MapWorkspace: React.FC = () => {
           });
         }
 
-        // Rótulo por Polígono
+        // Rótulo por Polígono (Apenas se zoom >= 14 e showLabels ativo)
+        const currentZoom = map.getView()?.getZoom() || 13;
+        const isZoomedIn = currentZoom >= 14;
+        const currentShowLabels = useAppStore.getState().showLabels;
+
         let labelText = '';
-        if (layerDef.id.includes('cosme')) labelText = 'Cosme Ferreira (730,76 ha)';
-        else if (layerDef.id.includes('uniao')) labelText = 'União Federal (654,76 ha)';
-        else if (layerDef.id.includes('jose')) labelText = 'José Afonso (2,63 ha)';
-        else if (layerDef.id.includes('devoluta')) labelText = 'Terra Devoluta (8,94 ha)';
-        else if (layerDef.id.includes('matr_26696')) labelText = 'Matrícula 26.696';
+        if (currentShowLabels && isZoomedIn) {
+          if (layerDef.id.includes('cosme')) labelText = 'Cosme Ferreira (730,76 ha)';
+          else if (layerDef.id.includes('uniao')) labelText = 'União Federal (654,76 ha)';
+          else if (layerDef.id.includes('jose')) labelText = 'José Afonso (2,63 ha)';
+          else if (layerDef.id.includes('devoluta')) labelText = 'Terra Devoluta (8,94 ha)';
+          else if (layerDef.id.includes('matr_26696')) labelText = 'Matrícula 26.696';
+        }
 
         return new Style({
           stroke: new Stroke({
@@ -152,7 +159,7 @@ export const MapWorkspace: React.FC = () => {
           }),
           text: labelText ? new Text({
             text: labelText,
-            font: 'bold 11px "JetBrains Mono", monospace',
+            font: 'bold 11px "JetBrains Mono", sans-serif',
             fill: new Fill({ color: '#F3F7FA' }),
             stroke: new Stroke({ color: '#07131F', width: 3 }),
             overflow: true,
@@ -237,18 +244,34 @@ export const MapWorkspace: React.FC = () => {
         const featNome = props.nome || layerDef?.name || 'Poligonal Reconstituída';
         const featPag = layerDef?.pagina === 16 ? 16 : 15;
 
+        // Calcular Coordenadas Lat/Lng para Google Maps
+        const lonLatClick = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+        const gmapsLink = `https://www.google.com/maps/@${lonLatClick[1].toFixed(6)},${lonLatClick[0].toFixed(6)},17z/data=!3m1!1e3`;
+
         // Atualizar Popup Rápido no Mapa
         if (popupContentRef.current) {
           popupContentRef.current.innerHTML = `
-            <div class="p-2 font-sans">
-              <div class="flex items-center justify-between border-b border-[#203B4D] pb-1 mb-1 font-mono">
+            <div class="p-2 font-sans space-y-1.5">
+              <div class="flex items-center justify-between border-b border-[#203B4D] pb-1 font-mono">
                 <span class="font-bold text-xs text-[#20A4F3]">${featId}</span>
-                <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Pag ${featPag}</span>
+                <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Página ${featPag}</span>
               </div>
-              <h4 class="font-bold text-xs text-[#F3F7FA] mb-1">${featNome}</h4>
-              <div class="text-[11px] font-mono text-[#9EB3C1]">
-                <div>Área: <strong class="text-[#F3F7FA]">${areaHa.toFixed(2)} ha</strong></div>
-                ${overlapPerc ? `<div>Sobreposição: <strong class="text-[#E85D5D]">${overlapPerc}%</strong></div>` : ''}
+              <h4 class="font-bold text-xs text-[#F3F7FA] leading-tight">${featNome}</h4>
+              <div class="text-[11px] font-mono text-[#9EB3C1] space-y-0.5">
+                <div>Área: <strong class="text-[#F3F7FA]">${areaHa.toFixed(2)} ha</strong> (${areaM2.toLocaleString('pt-BR')} m²)</div>
+                <div>Perímetro: <strong class="text-[#39C6B4]">${perimetroM.toLocaleString('pt-BR')} m</strong></div>
+                ${overlapPerc ? `<div class="text-[#E85D5D]">Sobreposição: <strong>${overlapPerc}% (${overlapHa?.toFixed(2)} ha)</strong></div>` : ''}
+              </div>
+              <div class="pt-1 border-t border-[#203B4D]">
+                <a 
+                  href="${gmapsLink}" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center space-x-1 text-[10px] font-bold text-[#20A4F3] hover:text-[#39C6B4] transition"
+                >
+                  <span>🛰️ Abrir Google Maps Imagem</span>
+                  <span>↗</span>
+                </a>
               </div>
             </div>
           `;
@@ -310,6 +333,12 @@ export const MapWorkspace: React.FC = () => {
       }
     });
   }, [layers, p15Opacity, p16Opacity]);
+
+  useEffect(() => {
+    Object.values(vectorLayersRef.current).forEach((layer) => {
+      layer.changed();
+    });
+  }, [showLabels]);
 
   useEffect(() => {
     if (!mapInstanceRef.current) return;

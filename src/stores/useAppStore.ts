@@ -34,6 +34,10 @@ interface AppState {
   currentScale: number;
   setCurrentScale: (scale: number) => void;
 
+  showLabels: boolean;
+  setShowLabels: (show: boolean) => void;
+  toggleShowLabels: () => void;
+
   isEvidenceModalOpen: boolean;
   setIsEvidenceModalOpen: (open: boolean) => void;
   isReportModalOpen: boolean;
@@ -110,6 +114,10 @@ export const useAppStore = create<AppState>((set) => ({
   setCurrentCoords: (coords) => set({ currentCoords: coords }),
   currentScale: 2500,
   setCurrentScale: (scale) => set({ currentScale: scale }),
+
+  showLabels: true,
+  setShowLabels: (show) => set({ showLabels: show }),
+  toggleShowLabels: () => set((state) => ({ showLabels: !state.showLabels })),
 
   isEvidenceModalOpen: false,
   setIsEvidenceModalOpen: (open) => set({ isEvidenceModalOpen: open }),
