@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "p16_apoio_areas_excluidas_21s",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::31981" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 16, "motivo": "Legenda", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 172513.230123025132343, 9661450.430706957355142 ], [ 172785.335562318010489, 9661450.430708659812808 ], [ 172785.332893539452925, 9661343.941101050004363 ], [ 172513.22745424657478, 9661343.941099345684052 ], [ 172513.230123025132343, 9661450.430706957355142 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 2, "pagina": 16, "motivo": "Cartucho", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 172785.458125190722058, 9661342.061872681602836 ], [ 172785.455403036583448, 9661233.442472917959094 ], [ 172432.545171688514529, 9661233.442470708861947 ], [ 172432.547893842653139, 9661342.061870472505689 ], [ 172785.458125190722058, 9661342.061872681602836 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 3, "pagina": 16, "motivo": "Escala grafica", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 172033.658551625791006, 9661269.81597732193768 ], [ 172157.893309436767595, 9661269.815978100523353 ], [ 172157.892608228285098, 9661241.836355708539486 ], [ 172033.657850417308509, 9661241.836354929953814 ], [ 172033.658551625791006, 9661269.81597732193768 ] ] ] } }
+]
+}

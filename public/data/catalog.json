@@ -1,0 +1,308 @@
+[
+  {
+    "id": "p15_apoio_areas_excluidas",
+    "name": "Areas Excluidas",
+    "pagina": 15,
+    "grupo": "apoio",
+    "count": 3,
+    "file_4326": "data/vetores/p15_apoio_areas_excluidas.geojson",
+    "file_21s": "data/vetores/p15_apoio_areas_excluidas_21s.geojson"
+  },
+  {
+    "id": "p15_apoio_moldura",
+    "name": "Moldura",
+    "pagina": 15,
+    "grupo": "apoio",
+    "count": 1,
+    "file_4326": "data/vetores/p15_apoio_moldura.geojson",
+    "file_21s": "data/vetores/p15_apoio_moldura_21s.geojson"
+  },
+  {
+    "id": "p15_apoio_pontos_controle",
+    "name": "Pontos Controle",
+    "pagina": 15,
+    "grupo": "apoio",
+    "count": 10,
+    "file_4326": "data/vetores/p15_apoio_pontos_controle.geojson",
+    "file_21s": "data/vetores/p15_apoio_pontos_controle_21s.geojson"
+  },
+  {
+    "id": "p15_apoio_recorte_analise",
+    "name": "Recorte Analise",
+    "pagina": 15,
+    "grupo": "apoio",
+    "count": 1,
+    "file_4326": "data/vetores/p15_apoio_recorte_analise.geojson",
+    "file_21s": "data/vetores/p15_apoio_recorte_analise_21s.geojson"
+  },
+  {
+    "id": "p15_auxiliares_aeis_sem_id",
+    "name": "Aeis Sem Id",
+    "pagina": 15,
+    "grupo": "auxiliares",
+    "count": 3,
+    "file_4326": "data/vetores/p15_auxiliares_aeis_sem_id.geojson",
+    "file_21s": "data/vetores/p15_auxiliares_aeis_sem_id_21s.geojson"
+  },
+  {
+    "id": "p15_auxiliares_verde_sem_id",
+    "name": "Verde Sem Id",
+    "pagina": 15,
+    "grupo": "auxiliares",
+    "count": 1,
+    "file_4326": "data/vetores/p15_auxiliares_verde_sem_id.geojson",
+    "file_21s": "data/vetores/p15_auxiliares_verde_sem_id_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_aeis_lula",
+    "name": "Aeis Lula",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p15_camadas_aeis_lula.geojson",
+    "file_21s": "data/vetores/p15_camadas_aeis_lula_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_aeis_maua",
+    "name": "Aeis Maua",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p15_camadas_aeis_maua.geojson",
+    "file_21s": "data/vetores/p15_camadas_aeis_maua_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_aeis_quar",
+    "name": "Aeis Quar",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 2,
+    "file_4326": "data/vetores/p15_camadas_aeis_quar.geojson",
+    "file_21s": "data/vetores/p15_camadas_aeis_quar_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_dom_part",
+    "name": "Dom Part",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 15,
+    "file_4326": "data/vetores/p15_camadas_dom_part.geojson",
+    "file_21s": "data/vetores/p15_camadas_dom_part_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_lim_bairros",
+    "name": "Lim Bairros",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 18,
+    "file_4326": "data/vetores/p15_camadas_lim_bairros.geojson",
+    "file_21s": "data/vetores/p15_camadas_lim_bairros_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_logradouros",
+    "name": "Logradouros",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 717,
+    "file_4326": "data/vetores/p15_camadas_logradouros.geojson",
+    "file_21s": "data/vetores/p15_camadas_logradouros_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_rvs_sauim",
+    "name": "Rvs Sauim",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p15_camadas_rvs_sauim.geojson",
+    "file_21s": "data/vetores/p15_camadas_rvs_sauim_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_terras_dest",
+    "name": "Terras Dest",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 3,
+    "file_4326": "data/vetores/p15_camadas_terras_dest.geojson",
+    "file_21s": "data/vetores/p15_camadas_terras_dest_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_titulo_cosme",
+    "name": "Titulo Cosme",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 3,
+    "file_4326": "data/vetores/p15_camadas_titulo_cosme.geojson",
+    "file_21s": "data/vetores/p15_camadas_titulo_cosme_21s.geojson"
+  },
+  {
+    "id": "p15_camadas_uniao",
+    "name": "Uniao",
+    "pagina": 15,
+    "grupo": "camadas",
+    "count": 3,
+    "file_4326": "data/vetores/p15_camadas_uniao.geojson",
+    "file_21s": "data/vetores/p15_camadas_uniao_21s.geojson"
+  },
+  {
+    "id": "p15_sobreposicoes_intersecoes",
+    "name": "Intersecoes",
+    "pagina": 15,
+    "grupo": "sobreposicoes",
+    "count": 19,
+    "file_4326": "data/vetores/p15_sobreposicoes_intersecoes.geojson",
+    "file_21s": "data/vetores/p15_sobreposicoes_intersecoes_21s.geojson"
+  },
+  {
+    "id": "p15_sobreposicoes_titulos_intersec",
+    "name": "Titulos Intersec",
+    "pagina": 15,
+    "grupo": "sobreposicoes",
+    "count": 13,
+    "file_4326": "data/vetores/p15_sobreposicoes_titulos_intersec.geojson",
+    "file_21s": "data/vetores/p15_sobreposicoes_titulos_intersec_21s.geojson"
+  },
+  {
+    "id": "p15_sobreposicoes_uniao_sobrepos",
+    "name": "Uniao Sobrepos",
+    "pagina": 15,
+    "grupo": "sobreposicoes",
+    "count": 1,
+    "file_4326": "data/vetores/p15_sobreposicoes_uniao_sobrepos.geojson",
+    "file_21s": "data/vetores/p15_sobreposicoes_uniao_sobrepos_21s.geojson"
+  },
+  {
+    "id": "p16_apoio_areas_excluidas",
+    "name": "Areas Excluidas",
+    "pagina": 16,
+    "grupo": "apoio",
+    "count": 3,
+    "file_4326": "data/vetores/p16_apoio_areas_excluidas.geojson",
+    "file_21s": "data/vetores/p16_apoio_areas_excluidas_21s.geojson"
+  },
+  {
+    "id": "p16_apoio_moldura",
+    "name": "Moldura",
+    "pagina": 16,
+    "grupo": "apoio",
+    "count": 1,
+    "file_4326": "data/vetores/p16_apoio_moldura.geojson",
+    "file_21s": "data/vetores/p16_apoio_moldura_21s.geojson"
+  },
+  {
+    "id": "p16_apoio_pontos_controle",
+    "name": "Pontos Controle",
+    "pagina": 16,
+    "grupo": "apoio",
+    "count": 8,
+    "file_4326": "data/vetores/p16_apoio_pontos_controle.geojson",
+    "file_21s": "data/vetores/p16_apoio_pontos_controle_21s.geojson"
+  },
+  {
+    "id": "p16_apoio_recorte_analise",
+    "name": "Recorte Analise",
+    "pagina": 16,
+    "grupo": "apoio",
+    "count": 1,
+    "file_4326": "data/vetores/p16_apoio_recorte_analise.geojson",
+    "file_21s": "data/vetores/p16_apoio_recorte_analise_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_aeis",
+    "name": "Aeis",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 2,
+    "file_4326": "data/vetores/p16_camadas_aeis.geojson",
+    "file_21s": "data/vetores/p16_camadas_aeis_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_devoluta",
+    "name": "Devoluta",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p16_camadas_devoluta.geojson",
+    "file_21s": "data/vetores/p16_camadas_devoluta_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_lim_bairros",
+    "name": "Lim Bairros",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 7,
+    "file_4326": "data/vetores/p16_camadas_lim_bairros.geojson",
+    "file_21s": "data/vetores/p16_camadas_lim_bairros_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_logradouros",
+    "name": "Logradouros",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 101,
+    "file_4326": "data/vetores/p16_camadas_logradouros.geojson",
+    "file_21s": "data/vetores/p16_camadas_logradouros_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_lotes_sect",
+    "name": "Lotes Sect",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 0,
+    "file_4326": "data/vetores/p16_camadas_lotes_sect.geojson",
+    "file_21s": "data/vetores/p16_camadas_lotes_sect_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_matr_26696",
+    "name": "Matr 26696",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p16_camadas_matr_26696.geojson",
+    "file_21s": "data/vetores/p16_camadas_matr_26696_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_matr_6623",
+    "name": "Matr 6623",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 0,
+    "file_4326": "data/vetores/p16_camadas_matr_6623.geojson",
+    "file_21s": "data/vetores/p16_camadas_matr_6623_21s.geojson"
+  },
+  {
+    "id": "p16_camadas_titulo_jose",
+    "name": "Titulo Jose",
+    "pagina": 16,
+    "grupo": "camadas",
+    "count": 1,
+    "file_4326": "data/vetores/p16_camadas_titulo_jose.geojson",
+    "file_21s": "data/vetores/p16_camadas_titulo_jose_21s.geojson"
+  },
+  {
+    "id": "p16_sobreposicoes_intersecoes",
+    "name": "Intersecoes",
+    "pagina": 16,
+    "grupo": "sobreposicoes",
+    "count": 5,
+    "file_4326": "data/vetores/p16_sobreposicoes_intersecoes.geojson",
+    "file_21s": "data/vetores/p16_sobreposicoes_intersecoes_21s.geojson"
+  },
+  {
+    "id": "p16_sobreposicoes_titulos_intersec",
+    "name": "Titulos Intersec",
+    "pagina": 16,
+    "grupo": "sobreposicoes",
+    "count": 2,
+    "file_4326": "data/vetores/p16_sobreposicoes_titulos_intersec.geojson",
+    "file_21s": "data/vetores/p16_sobreposicoes_titulos_intersec_21s.geojson"
+  },
+  {
+    "id": "p16_sobreposicoes_uniao_sobrepos",
+    "name": "Uniao Sobrepos",
+    "pagina": 16,
+    "grupo": "sobreposicoes",
+    "count": 1,
+    "file_4326": "data/vetores/p16_sobreposicoes_uniao_sobrepos.geojson",
+    "file_21s": "data/vetores/p16_sobreposicoes_uniao_sobrepos_21s.geojson"
+  }
+]

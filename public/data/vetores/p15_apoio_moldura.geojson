@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "p15_apoio_moldura",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 15, "id_layer": "p15_apoio_moldura", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 15, "doc_folha": 108, "doc_escala": "1:15.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.68 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -59.891979802740266, -3.076298060800934 ], [ -59.892080243370948, -3.113317223002793 ], [ -59.943475549108136, -3.113174208372497 ], [ -59.943373329776236, -3.076156749858479 ], [ -59.891979802740266, -3.076298060800934 ] ] ] } }
+]
+}
