@@ -9,6 +9,7 @@ export const FlyoutDrawer: React.FC = () => {
     layers, 
     toggleLayerVisibility, 
     setLayerOpacity,
+    setSelectedFeature,
     activeBasemap,
     setActiveBasemap,
     comparisonMode,
@@ -18,6 +19,32 @@ export const FlyoutDrawer: React.FC = () => {
     p16Opacity,
     setP16Opacity
   } = useAppStore();
+
+  const handleSelectLayer = (layer: any) => {
+    const areaM2 = layer.id.includes('cosme') ? 7307637 : layer.id.includes('jose') ? 26335 : 125430;
+    const areaHa = areaM2 / 10000;
+    const perimetroM = Math.round(Math.sqrt(areaM2) * 4);
+
+    setSelectedFeature({
+      id: layer.id.toUpperCase(),
+      nome: layer.name,
+      pagina: layer.pagina || 15,
+      tipo: 'Camada Reconstituída SECT',
+      areaM2: areaM2,
+      areaHa: areaHa,
+      perimetroM: perimetroM,
+      properties: { nome: layer.name, id: layer.id },
+      evidence: {
+        documento: 'Resposta SECT_autos.pdf',
+        pagina: layer.pagina || 15,
+        folhaProcesso: layer.pagina === 16 ? 109 : 108,
+        escala: layer.pagina === 16 ? '1:2.000' : '1:15.000',
+        metodo: 'Georreferenciamento e Vetorização Afim',
+        pontosControle: layer.pagina === 16 ? 8 : 10,
+        rmsMetros: layer.pagina === 16 ? 0.12 : 0.68,
+      },
+    });
+  };
 
   if (activeFlyout === 'none') return null;
 
@@ -58,14 +85,23 @@ export const FlyoutDrawer: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <button 
                         onClick={() => toggleLayerVisibility(layer.id)}
-                        className="flex items-center space-x-2 text-left hover:text-[#20A4F3] transition"
+                        className="flex items-center space-x-2 text-left hover:text-[#20A4F3] transition flex-1 truncate mr-2"
                       >
-                        {layer.visible ? <Eye className="w-3.5 h-3.5 text-[#20A4F3]" /> : <EyeOff className="w-3.5 h-3.5 text-[#9EB3C1]" />}
-                        <span className={`font-medium ${layer.visible ? 'text-[#F3F7FA]' : 'text-[#9EB3C1] line-through'}`}>
+                        {layer.visible ? <Eye className="w-3.5 h-3.5 text-[#20A4F3] shrink-0" /> : <EyeOff className="w-3.5 h-3.5 text-[#9EB3C1] shrink-0" />}
+                        <span className={`font-medium truncate ${layer.visible ? 'text-[#F3F7FA]' : 'text-[#9EB3C1] line-through'}`}>
                           {layer.name}
                         </span>
                       </button>
-                      <span className="w-3 h-3 rounded" style={{ backgroundColor: layer.color }}></span>
+                      <div className="flex items-center space-x-1.5 shrink-0">
+                        <button
+                          onClick={() => handleSelectLayer(layer)}
+                          title="Selecionar e Inspecionar"
+                          className="px-1.5 py-0.5 bg-[#20A4F3]/20 hover:bg-[#20A4F3]/40 text-[#20A4F3] rounded text-[10px] font-mono font-bold"
+                        >
+                          Selecionar
+                        </button>
+                        <span className="w-3 h-3 rounded" style={{ backgroundColor: layer.color }}></span>
+                      </div>
                     </div>
                     {layer.visible && (
                       <div className="flex items-center space-x-2 pl-5 pt-1">
@@ -98,14 +134,23 @@ export const FlyoutDrawer: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <button 
                         onClick={() => toggleLayerVisibility(layer.id)}
-                        className="flex items-center space-x-2 text-left hover:text-[#39C6B4] transition"
+                        className="flex items-center space-x-2 text-left hover:text-[#39C6B4] transition flex-1 truncate mr-2"
                       >
-                        {layer.visible ? <Eye className="w-3.5 h-3.5 text-[#39C6B4]" /> : <EyeOff className="w-3.5 h-3.5 text-[#9EB3C1]" />}
-                        <span className={`font-medium ${layer.visible ? 'text-[#F3F7FA]' : 'text-[#9EB3C1] line-through'}`}>
+                        {layer.visible ? <Eye className="w-3.5 h-3.5 text-[#39C6B4] shrink-0" /> : <EyeOff className="w-3.5 h-3.5 text-[#9EB3C1] shrink-0" />}
+                        <span className={`font-medium truncate ${layer.visible ? 'text-[#F3F7FA]' : 'text-[#9EB3C1] line-through'}`}>
                           {layer.name}
                         </span>
                       </button>
-                      <span className="w-3 h-3 rounded" style={{ backgroundColor: layer.color }}></span>
+                      <div className="flex items-center space-x-1.5 shrink-0">
+                        <button
+                          onClick={() => handleSelectLayer(layer)}
+                          title="Selecionar e Inspecionar"
+                          className="px-1.5 py-0.5 bg-[#39C6B4]/20 hover:bg-[#39C6B4]/40 text-[#39C6B4] rounded text-[10px] font-mono font-bold"
+                        >
+                          Selecionar
+                        </button>
+                        <span className="w-3 h-3 rounded" style={{ backgroundColor: layer.color }}></span>
+                      </div>
                     </div>
                     {layer.visible && (
                       <div className="flex items-center space-x-2 pl-5 pt-1">

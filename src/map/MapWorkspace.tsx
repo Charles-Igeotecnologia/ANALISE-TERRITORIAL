@@ -207,28 +207,27 @@ export const MapWorkspace: React.FC = () => {
       setCurrentScale(scale > 0 ? scale : 2500);
     });
 
-    // 5. CLIQUE DE POPUP RÁPIDO E REVELAÇÃO PROGRESSIVA
+    // 5. CLIQUE DE POPUP RÁPIDO COM SUPORTE A MÚLTIPLAS CAMADAS (SELETOR DE VETORES)
     map.on('singleclick', (evt) => {
-      let foundFeature: Feature | null = null;
-      let foundLayerId: string | null = null;
+      const foundFeatures: { feature: Feature; layerId: string }[] = [];
 
       map.forEachFeatureAtPixel(evt.pixel, (feature, layer) => {
         if (layer) {
           const lId = layer.get('id') as string;
-          const isBackground = lId.includes('moldura') || lId.includes('recorte') || lId.includes('bairros') || lId.includes('logradouros') || lId.includes('excluidas');
-          
-          if (!isBackground && !foundFeature) {
-            foundFeature = feature as Feature;
-            foundLayerId = lId;
+          if (lId && !foundFeatures.some(f => f.layerId === lId)) {
+            foundFeatures.push({ feature: feature as Feature, layerId: lId });
           }
         }
       });
 
-      if (foundFeature && foundLayerId) {
-        const layerIdStr: string = foundLayerId;
-        const props = (foundFeature as Feature).getProperties();
+      if (foundFeatures.length === 0) return;
+
+      // Seleção da camada ativa (prioriza a primeira escolhida ou permite alternar)
+      const selectTargetFeature = (target: { feature: Feature; layerId: string }) => {
+        const layerIdStr = target.layerId;
+        const props = target.feature.getProperties();
         const layerDef = layers.find(l => l.id === layerIdStr);
-        
+
         const areaM2 = props.area_aprox_m2 || props.area_m2 || (layerIdStr.includes('cosme') ? 7307637 : layerIdStr.includes('jose') ? 26335 : 125430);
         const areaHa = areaM2 / 10000;
         const perimetroM = Math.round(Math.sqrt(areaM2) * 4);
@@ -255,6 +254,36 @@ export const MapWorkspace: React.FC = () => {
         const lonLatClick = transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
         const gmapsLink = `https://www.google.com/maps/@${lonLatClick[1].toFixed(6)},${lonLatClick[0].toFixed(6)},17z/data=!3m1!1e3`;
 
+        // Se houver mais de uma camada sobreposta neste ponto, gerar botões de alternância
+        let selectorTabsHtml = '';
+        if (foundFeatures.length > 1) {
+          selectorTabsHtml = `
+            <div class="pt-1.5 border-t border-[#203B4D] space-y-1">
+              <div class="text-[10px] text-[#39C6B4] font-mono font-bold flex items-center justify-between">
+                <span>📍 ${foundFeatures.length} CAMADAS SOBREPOSTAS NESTE PONTO:</span>
+              </div>
+              <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto custom-scrollbar">
+                ${foundFeatures.map(item => {
+                  const lDef = layers.find(l => l.id === item.layerId);
+                  const isCurrent = item.layerId === layerIdStr;
+                  return `
+                    <button 
+                      data-layer-id="${item.layerId}"
+                      class="px-2 py-0.5 rounded text-[10px] font-mono font-medium transition ${
+                        isCurrent 
+                          ? 'bg-[#20A4F3] text-[#07131F] font-bold shadow' 
+                          : 'bg-[#122A3A] text-[#9EB3C1] hover:text-[#F3F7FA] border border-[#203B4D]'
+                      }"
+                    >
+                      ${lDef?.name || item.layerId}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }
+
         // Atualizar Popup Rápido no Mapa
         if (popupContentRef.current) {
           popupContentRef.current.innerHTML = `
@@ -269,7 +298,8 @@ export const MapWorkspace: React.FC = () => {
                 <div>Perímetro: <strong class="text-[#39C6B4]">${perimetroM.toLocaleString('pt-BR')} m</strong></div>
                 ${overlapPerc ? `<div class="text-[#E85D5D]">Sobreposição: <strong>${overlapPerc}% (${overlapHa?.toFixed(2)} ha)</strong></div>` : ''}
               </div>
-              <div class="pt-1 border-t border-[#203B4D]">
+              ${selectorTabsHtml}
+              <div class="pt-1.5 border-t border-[#203B4D]">
                 <a 
                   href="${gmapsLink}" 
                   target="_blank" 
@@ -283,6 +313,19 @@ export const MapWorkspace: React.FC = () => {
             </div>
           `;
           overlayPopup.setPosition(evt.coordinate);
+
+          // Adicionar listeners nos botões do seletor no popup
+          if (foundFeatures.length > 1) {
+            const btns = popupContentRef.current.querySelectorAll('button[data-layer-id]');
+            btns.forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const targetLId = (btn as HTMLElement).getAttribute('data-layer-id');
+                const targetObj = foundFeatures.find(f => f.layerId === targetLId);
+                if (targetObj) selectTargetFeature(targetObj);
+              });
+            });
+          }
         }
 
         setSelectedFeature({
@@ -307,6 +350,10 @@ export const MapWorkspace: React.FC = () => {
             rmsMetros: featPag === 16 ? 0.12 : 0.68,
           },
         });
+      };
+
+      if (foundFeatures.length > 0) {
+        selectTargetFeature(foundFeatures[0]);
       } else {
         overlayPopup.setPosition(undefined);
         setSelectedFeature(null);
