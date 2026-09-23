@@ -323,17 +323,17 @@
                     </div>
                 </div>
 
-                <!-- SEÇÃO 2: ARQUIVOS VETORIAIS (KML / GEOJSON) -->
+                <!-- SEÇÃO 2: ARQUIVOS VETORIAIS (KML / ESRI SHAPEFILE) -->
                 <div class="space-y-3 pt-2">
                     <h4 class="font-bold text-xs text-[#39C6B4] uppercase tracking-wider font-mono flex items-center space-x-2 border-b border-[#203B4D] pb-1.5">
                         <i class="fa-solid fa-map text-[#39C6B4]"></i>
-                        <span>2. Arquivos Vetoriais (KML / GeoJSON)</span>
+                        <span>2. Arquivos Vetoriais (KML / ESRI Shapefile)</span>
                     </h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="bg-[#122A3A] p-3.5 rounded-xl border border-[#39C6B4]/40 space-y-2">
                             <div class="flex items-center justify-between font-mono text-[10px] text-[#39C6B4]">
                                 <span class="font-bold uppercase">Formato KML (Google Earth / QGIS)</span>
-                                <span class="bg-[#39C6B4]/20 text-[#39C6B4] px-1.5 py-0.5 rounded font-mono border border-[#39C6B4]/30">Recomendado</span>
+                                <span class="bg-[#39C6B4]/20 text-[#39C6B4] px-1.5 py-0.5 rounded font-mono border border-[#39C6B4]/30">Google Earth</span>
                             </div>
                             <h5 class="font-bold text-xs text-[#F3F7FA]">SECT_Reconstituicao_Vetores_P15_P16.kml</h5>
                             <p class="text-[11px] text-[#9EB3C1] leading-relaxed">Pacote vetorial KML completo contendo todos os polígonos, estradas, bairros e pontos de controle com estilos e metadados.</p>
@@ -343,17 +343,17 @@
                             </button>
                         </div>
 
-                        <div class="bg-[#122A3A] p-3.5 rounded-xl border border-[#203B4D] space-y-2">
+                        <div class="bg-[#122A3A] p-3.5 rounded-xl border border-[#20A4F3]/40 space-y-2">
                             <div class="flex items-center justify-between font-mono text-[10px] text-[#20A4F3]">
-                                <span class="font-bold uppercase">Formato GeoJSON (GIS Web & Pro)</span>
-                                <span class="bg-[#07131F] text-[#20A4F3] px-1.5 py-0.5 rounded border border-[#203B4D]">SIRGAS 2000</span>
+                                <span class="font-bold uppercase">Formato Shapefile (ESRI Shapefile .zip)</span>
+                                <span class="bg-[#20A4F3]/20 text-[#20A4F3] px-1.5 py-0.5 rounded border border-[#20A4F3]/30">GIS Padrão</span>
                             </div>
-                            <h5 class="font-bold text-xs text-[#F3F7FA]">Acervo_Vetorial_Completo_34_Camadas.geojson</h5>
-                            <p class="text-[11px] text-[#9EB3C1] leading-relaxed">Todas as 34 camadas vetoriais georreferenciadas em SIRGAS 2000 / UTM Fuso 21S (EPSG:31981).</p>
-                            <button onclick="exportKML()" class="w-full py-2 px-3 bg-[#20A4F3] hover:bg-[#1B8CD0] text-[#07131F] font-bold rounded-lg text-xs transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#20A4F3]/20 mt-2">
-                                <i class="fa-solid fa-download"></i>
-                                <span>Baixar Pacote Vetorial</span>
-                            </button>
+                            <h5 class="font-bold text-xs text-[#F3F7FA]">SECT_Vetores_Shapefile_P15_P16.zip</h5>
+                            <p class="text-[11px] text-[#9EB3C1] leading-relaxed">Pacote completo com as 34 camadas vetoriais no formato ESRI Shapefile (.shp, .shx, .dbf, .prj) georreferenciadas em SIRGAS 2000 / UTM 21S (EPSG:31981).</p>
+                            <a href="docs/SECT_Vetores_Shapefile_P15_P16.zip" download="SECT_Vetores_Shapefile_P15_P16.zip" class="w-full py-2 px-3 bg-[#20A4F3] hover:bg-[#1B8CD0] text-[#07131F] font-bold rounded-lg text-xs transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#20A4F3]/20 mt-2 text-center">
+                                <i class="fa-solid fa-file-zipper"></i>
+                                <span>Baixar Pacote Shapefile (.zip)</span>
+                            </a>
                         </div>
                     </div>
                 </div>
