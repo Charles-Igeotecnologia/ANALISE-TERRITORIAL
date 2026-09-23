@@ -44,6 +44,8 @@ interface AppState {
   setIsReportModalOpen: (open: boolean) => void;
   isAskTerritoryOpen: boolean;
   setIsAskTerritoryOpen: (open: boolean) => void;
+  isDownloadsModalOpen: boolean;
+  setIsDownloadsModalOpen: (open: boolean) => void;
 }
 
 const initialLayers: LayerItem[] = [
@@ -125,4 +127,6 @@ export const useAppStore = create<AppState>((set) => ({
   setIsReportModalOpen: (open) => set({ isReportModalOpen: open }),
   isAskTerritoryOpen: false,
   setIsAskTerritoryOpen: (open) => set({ isAskTerritoryOpen: open }),
+  isDownloadsModalOpen: false,
+  setIsDownloadsModalOpen: (open) => set({ isDownloadsModalOpen: open }),
 }));

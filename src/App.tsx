@@ -7,6 +7,7 @@ import { FeatureInspector } from './components/FeatureInspector';
 import { StatusBar } from './components/StatusBar';
 import { AskTerritory } from './components/AskTerritory';
 import { ReportModal } from './components/ReportModal';
+import { DownloadsModal } from './components/DownloadsModal';
 
 export const App: React.FC = () => {
   return (
@@ -37,6 +38,7 @@ export const App: React.FC = () => {
       {/* 4. Modais Interativos */}
       <AskTerritory />
       <ReportModal />
+      <DownloadsModal />
     </div>
   );
 };

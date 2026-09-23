@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppStore } from '../stores/useAppStore';
-import { Compass, Sparkles, MapPin, Layers, FileText, CheckCircle2 } from 'lucide-react';
+import { Compass, Sparkles, MapPin, Layers, FileText, CheckCircle2, FolderDown } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { 
@@ -8,6 +8,7 @@ export const Header: React.FC = () => {
     setActivePageFocus, 
     setIsAskTerritoryOpen,
     setIsReportModalOpen,
+    setIsDownloadsModalOpen,
     setActiveModule
   } = useAppStore();
 
@@ -104,6 +105,16 @@ export const Header: React.FC = () => {
         >
           <Sparkles className="w-3.5 h-3.5 text-[#39C6B4]" />
           <span>✦ Pergunte ao Território</span>
+        </button>
+
+        {/* Botão Central de Downloads & Repositório */}
+        <button
+          onClick={() => setIsDownloadsModalOpen(true)}
+          className="px-3 py-1.5 bg-[#122A3A] hover:bg-[#203B4D] text-[#39C6B4] border border-[#203B4D] rounded-lg text-xs font-medium transition flex items-center space-x-1.5"
+          title="Baixar arquivos PDF e vetores KML/GeoJSON"
+        >
+          <FolderDown className="w-3.5 h-3.5 text-[#39C6B4]" />
+          <span className="hidden sm:inline">Acervo / Downloads</span>
         </button>
 
         {/* Botão Gerar Síntese PDF */}
