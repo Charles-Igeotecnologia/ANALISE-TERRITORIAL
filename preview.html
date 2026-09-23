@@ -1649,8 +1649,11 @@
             return `
                 <div class="p-1 font-sans space-y-2">
                     <div class="flex justify-between items-center border-b border-[#203B4D] pb-1 font-mono">
-                        <span class="font-bold text-xs text-[#20A4F3]">${props.id_imovel || key.toUpperCase()}</span>
-                        <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Página ${pag}</span>
+                        <div class="flex items-center space-x-1.5">
+                            <span class="font-bold text-xs text-[#20A4F3]">${props.id_imovel || key.toUpperCase()}</span>
+                            <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Página ${pag}</span>
+                        </div>
+                        <button onclick="map.closePopup();" title="Fechar Popup" class="text-[#9EB3C1] hover:text-[#F3F7FA] hover:bg-[#122A3A] w-5 h-5 rounded flex items-center justify-center text-xs font-bold transition ml-2">✕</button>
                     </div>
                     <h4 class="font-bold text-xs text-[#F3F7FA]">${title}</h4>
                     <div class="text-[11px] font-mono text-[#9EB3C1] space-y-1 bg-[#07131F] p-2 rounded border border-[#203B4D]">
