@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "p16_camadas_titulo_jose",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 16, "classe": "Titulo Definitivo de Jose Afonso", "rotulo": "Titulo Definitivo de Jose Afonso", "seq_pdf": "2275", "metodo": "CONTORNO_PDF", "situacao": "DERIV_PDF", "recortado": 1, "area_m2": 26335.578, "area_ha": 2.633558, "id_layer": "p16_camadas_titulo_jose", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -59.948386612656044, -3.058353854490629 ], [ -59.947947581910121, -3.057476068271567 ], [ -59.94599129959348, -3.058170021547911 ], [ -59.946846466251536, -3.059177148441385 ], [ -59.948386612656044, -3.058353854490629 ] ] ] } }
+]
+}

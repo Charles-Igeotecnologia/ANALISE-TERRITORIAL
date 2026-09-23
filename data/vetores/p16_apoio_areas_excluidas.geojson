@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "p16_apoio_areas_excluidas",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": 1, "pagina": 16, "motivo": "Legenda", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -59.945911823971798, -3.058867715300658 ], [ -59.943466270517007, -3.058874463768268 ], [ -59.943468920990739, -3.059836601458914 ], [ -59.945914476619976, -3.059829850864721 ], [ -59.945911823971798, -3.058867715300658 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 2, "pagina": 16, "motivo": "Cartucho", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -59.943467841823569, -3.059853583465898 ], [ -59.943470546175718, -3.060834963890835 ], [ -59.946642339133717, -3.060826204696416 ], [ -59.946639631904056, -3.059844827085108 ], [ -59.943467841823569, -3.059853583465898 ] ] ] } },
+{ "type": "Feature", "properties": { "id": 3, "pagina": 16, "motivo": "Escala grafica", "id_layer": "p16_apoio_areas_excluidas", "doc_fonte": "Resposta SECT_autos.pdf", "doc_pagina": 16, "doc_folha": 109, "doc_escala": "1:2.000", "doc_metodo": "Reconstituição Vetorial Afim", "doc_rms_m": 0.12 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -59.950226435930119, -3.060487658999946 ], [ -59.949109876742114, -3.060490746973646 ], [ -59.949110574748495, -3.060743542639564 ], [ -59.950227134197469, -3.060740454410325 ], [ -59.950226435930119, -3.060487658999946 ] ] ] } }
+]
+}
