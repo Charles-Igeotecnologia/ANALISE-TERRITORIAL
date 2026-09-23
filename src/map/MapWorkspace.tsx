@@ -289,8 +289,17 @@ export const MapWorkspace: React.FC = () => {
           popupContentRef.current.innerHTML = `
             <div class="p-2 font-sans space-y-1.5">
               <div class="flex items-center justify-between border-b border-[#203B4D] pb-1 font-mono">
-                <span class="font-bold text-xs text-[#20A4F3]">${featId}</span>
-                <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Página ${featPag}</span>
+                <div class="flex items-center space-x-1.5">
+                  <span class="font-bold text-xs text-[#20A4F3]">${featId}</span>
+                  <span class="text-[10px] bg-[#122A3A] text-[#39C6B4] px-1.5 py-0.5 rounded">Página ${featPag}</span>
+                </div>
+                <button 
+                  id="close-map-popup-btn" 
+                  title="Fechar Popup" 
+                  class="text-[#9EB3C1] hover:text-[#F3F7FA] hover:bg-[#122A3A] w-5 h-5 rounded flex items-center justify-center text-xs font-bold transition ml-2"
+                >
+                  ✕
+                </button>
               </div>
               <h4 class="font-bold text-xs text-[#F3F7FA] leading-tight">${featNome}</h4>
               <div class="text-[11px] font-mono text-[#9EB3C1] space-y-0.5">
@@ -313,6 +322,16 @@ export const MapWorkspace: React.FC = () => {
             </div>
           `;
           overlayPopup.setPosition(evt.coordinate);
+
+          // Event Listener para fechar o popup
+          const closeBtn = popupContentRef.current.querySelector('#close-map-popup-btn');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              overlayPopup.setPosition(undefined);
+              setSelectedFeature(null);
+            });
+          }
 
           // Adicionar listeners nos botões do seletor no popup
           if (foundFeatures.length > 1) {
