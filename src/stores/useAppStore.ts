@@ -22,8 +22,8 @@ interface AppState {
   p16Opacity: number;
   setP16Opacity: (opacity: number) => void;
 
-  activeBasemap: 'google-hybrid' | 'esri-satellite' | 'cartodb-dark' | 'osm';
-  setActiveBasemap: (basemap: 'google-hybrid' | 'esri-satellite' | 'cartodb-dark' | 'osm') => void;
+  activeBasemap: 'google-hybrid' | 'google-satellite' | 'esri-satellite' | 'osm';
+  setActiveBasemap: (basemap: 'google-hybrid' | 'google-satellite' | 'esri-satellite' | 'osm') => void;
 
   layers: LayerItem[];
   toggleLayerVisibility: (layerId: string) => void;

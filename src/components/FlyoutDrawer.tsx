@@ -132,8 +132,9 @@ export const FlyoutDrawer: React.FC = () => {
         {activeFlyout === 'basemaps' && (
           <div className="space-y-3">
             {[
-              { id: 'google-hybrid', name: '🗺️ Satélite Híbrido HD', desc: 'Satélite de alta resolução com vias, logradouros e bairros' },
-              { id: 'esri-satellite', name: '🛰️ Esri World Imagery', desc: 'Imagens orbitais puras em alta resolução' },
+              { id: 'google-hybrid', name: '🗺️ Satélite Híbrido HD (Padrão)', desc: 'Satélite de alta resolução com vias, logradouros e bairros' },
+              { id: 'google-satellite', name: '🛰️ Satélite HD Puro (Google)', desc: 'Imagens orbitais limpas de alta definição' },
+              { id: 'esri-satellite', name: '🌎 Esri World Imagery (ArcGIS)', desc: 'Imagens orbitais ArcGIS de alta resolução' },
               { id: 'osm', name: '🧭 OpenStreetMap Standard', desc: 'Mapa urbano de ruas e vetorização municipal' },
             ].map(b => (
               <button
