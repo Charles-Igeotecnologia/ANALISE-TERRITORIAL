@@ -1743,14 +1743,14 @@
             } else if (tab === 'basemaps') {
                 title.innerText = 'SELETOR DE BASEMAP (SATÉLITE HD & HÍBRIDO)';
                 body.innerHTML = `
-                    <div class="space-y-2">
+                    <div class="space-y-2 font-sans">
                         <button onclick="setBasemap('hybrid')" class="w-full p-2.5 bg-[#122A3A] border border-[#20A4F3] text-left rounded text-[#F3F7FA] font-bold">
-                            🗺️ Satélite Híbrido HD (Com Logradouros e Vias)
+                            🗺️ Satélite Híbrido HD (Google Satélite + Vias)
                         </button>
-                        <button onclick="setBasemap('esri')" class="w-full p-2.5 bg-[#07131F] border border-[#203B4D] text-left rounded text-[#9EB3C1]">
-                            🛰️ Esri World Imagery (Satélite Puro)
+                        <button onclick="setBasemap('esri')" class="w-full p-2.5 bg-[#07131F] border border-[#203B4D] text-left rounded text-[#9EB3C1] hover:bg-[#122A3A]/50">
+                            🌎 Esri World Imagery (ArcGIS Satélite)
                         </button>
-                        <button onclick="setBasemap('osm')" class="w-full p-2.5 bg-[#07131F] border border-[#203B4D] text-left rounded text-[#9EB3C1]">
+                        <button onclick="setBasemap('osm')" class="w-full p-2.5 bg-[#07131F] border border-[#203B4D] text-left rounded text-[#9EB3C1] hover:bg-[#122A3A]/50">
                             🧭 OpenStreetMap Standard
                         </button>
                     </div>
