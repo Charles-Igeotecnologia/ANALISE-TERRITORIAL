@@ -1669,13 +1669,13 @@
             `;
         }
 
-        // RENDERIZAÇÃO DAS CAMADAS
-        addGeoJsonLayer('p15_moldura', '#94A3B8', 0.1, 2.5, false);
-        addGeoJsonLayer('p16_moldura', '#94A3B8', 0.1, 2.5, false);
-        addGeoJsonLayer('p15_bairros', '#CBD5E1', 0, 1.5, false);
-        addGeoJsonLayer('p16_bairros', '#CBD5E1', 0, 1.5, false);
-        addGeoJsonLayer('p15_logradouros', '#F97316', 0.8, 1.5, false);
-        addGeoJsonLayer('p16_logradouros', '#F97316', 0.8, 1.5, false);
+        // RENDERIZAÇÃO DAS CAMADAS (TODAS INTERATIVAS E SELECIONÁVEIS)
+        addGeoJsonLayer('p15_moldura', '#94A3B8', 0.1, 2.5, true);
+        addGeoJsonLayer('p16_moldura', '#94A3B8', 0.1, 2.5, true);
+        addGeoJsonLayer('p15_bairros', '#CBD5E1', 0.1, 1.5, true);
+        addGeoJsonLayer('p16_bairros', '#CBD5E1', 0.1, 1.5, true);
+        addGeoJsonLayer('p15_logradouros', '#F97316', 0.8, 1.5, true);
+        addGeoJsonLayer('p16_logradouros', '#F97316', 0.8, 1.5, true);
 
         addGeoJsonLayer('p15_intersecoes', '#E85D5D', 0.6, 2, true);
         addGeoJsonLayer('p16_intersecoes', '#E85D5D', 0.6, 2, true);
@@ -1707,6 +1707,19 @@
             document.getElementById('coord-x').innerText = 'X ' + Number(utmE).toLocaleString('pt-BR') + ' m';
             document.getElementById('coord-y').innerText = 'Y ' + Number(utmN).toLocaleString('pt-BR') + ' m';
         });
+
+        // SELECIONAR E FOCAR EM QUALQUER CAMADA INDIVIDUAL
+        function selectLayerAndFocus(key) {
+            if (layerMap[key]) {
+                try {
+                    const bounds = layerMap[key].getBounds();
+                    if (bounds && bounds.isValid()) {
+                        map.fitBounds(bounds, { padding: [30, 30] });
+                    }
+                } catch(e) {}
+            }
+            inspectFeature(key, {});
+        }
 
         // 6. INSPECIONAR FEIÇÃO NO PAINEL DIREITO
         function inspectFeature(key, props) {
@@ -1817,46 +1830,92 @@
             if (tab === 'layers') {
                 title.innerText = 'GERENCIADOR DE CAMADAS (P15 / P16)';
                 body.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="font-bold text-[#20A4F3] border-b border-[#203B4D] pb-1">● PÁGINA 15 (COLÔNIA ANTÔNIO ALEIXO)</div>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Título Cosme Ferreira (730,76 ha)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p15_cosme', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Área da União Federal (654,76 ha)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p15_uniao', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Domínio Particular (262,76 ha)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p15_dom_part', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Terras Destacadas Estado</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p15_terras_dest', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Interseções Calculadas (P15)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p15_intersecoes', this.checked)">
-                        </label>
+                    <div class="space-y-3 font-mono text-[11px]">
+                        <div class="font-bold text-[#20A4F3] border-b border-[#203B4D] pb-1 uppercase font-sans">● Página 15 (Colônia Antônio Aleixo)</div>
+                        
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#20A4F3]"></span><span class="truncate">Título Cosme Ferreira (730,76 ha)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_cosme')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_cosme', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#F2A93B]"></span><span class="truncate">Área da União Federal (654,76 ha)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_uniao')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_uniao', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#39C6B4]"></span><span class="truncate">Domínio Particular (262,76 ha)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_dom_part')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_dom_part', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#A78BFA]"></span><span class="truncate">Terras Destacadas Estado</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_terras_dest')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_terras_dest', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#46C37B]"></span><span class="truncate">AEIS Mauazinho</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_aeis_maua')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_aeis_maua', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#10B981]"></span><span class="truncate">AEIS Igarapé do Quarenta</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_aeis_quar')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_aeis_quar', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#059669]"></span><span class="truncate">AEIS C. H. Pres. Lula</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_aeis_lula')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_aeis_lula', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#84CC16]"></span><span class="truncate">RVS Sauim Castanheiras</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_rvs_sauim')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_rvs_sauim', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#E85D5D]"></span><span class="truncate">Interseções Calculadas (P15)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_intersecoes')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_intersecoes', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#F97316]"></span><span class="truncate">Logradouros P15 (GeoManaus)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_logradouros')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_logradouros', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#CBD5E1]"></span><span class="truncate">Limites Bairros P15</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_bairros')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_bairros', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#20A4F3]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#94A3B8]"></span><span class="truncate">Moldura Cartográfica P15</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p15_moldura')" class="px-1.5 py-0.5 bg-[#20A4F3]/20 text-[#20A4F3] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p15_moldura', this.checked)"></div>
+                        </div>
 
-                        <div class="font-bold text-[#39C6B4] border-b border-[#203B4D] pb-1 pt-2">● PÁGINA 16 (SÃO JOSÉ OPERÁRIO)</div>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Título José Afonso (2,63 ha)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p16_jose', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Terra Devoluta Tancredo Neves</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p16_devoluta', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Matrícula 26.696 Estado</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p16_matr', this.checked)">
-                        </label>
-                        <label class="flex justify-between items-center cursor-pointer p-1.5 bg-[#122A3A] rounded hover:bg-[#203B4D]/60 transition">
-                            <span>Interseções Calculadas (P16)</span>
-                            <input type="checkbox" checked onchange="toggleLayer('p16_intersecoes', this.checked)">
-                        </label>
+                        <div class="font-bold text-[#39C6B4] border-b border-[#203B4D] pb-1 pt-2 uppercase font-sans">● Página 16 (São José Operário)</div>
+
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#20A4F3]"></span><span class="truncate">Título José Afonso (2,63 ha)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_jose')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_jose', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#EC4899]"></span><span class="truncate">Terra Devoluta Tancredo Neves</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_devoluta')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_devoluta', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#8B5CF6]"></span><span class="truncate">Matrícula 26.696 Estado</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_matr')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_matr', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#46C37B]"></span><span class="truncate">AEIS São José Operário</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_aeis')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_aeis', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#E85D5D]"></span><span class="truncate">Interseções Calculadas (P16)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_intersecoes')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_intersecoes', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#F97316]"></span><span class="truncate">Logradouros P16 (GeoManaus)</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_logradouros')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_logradouros', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#CBD5E1]"></span><span class="truncate">Limites Bairros P16</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_bairros')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_bairros', this.checked)"></div>
+                        </div>
+                        <div class="flex items-center justify-between p-1.5 bg-[#122A3A] rounded border border-[#203B4D] hover:border-[#39C6B4]/50 transition">
+                            <span class="truncate text-[#F3F7FA] flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full shrink-0 inline-block bg-[#94A3B8]"></span><span class="truncate">Moldura Cartográfica P16</span></span>
+                            <div class="flex items-center space-x-1.5 shrink-0"><button onclick="selectLayerAndFocus('p16_moldura')" class="px-1.5 py-0.5 bg-[#39C6B4]/20 text-[#39C6B4] rounded text-[10px] font-bold">Selecionar</button><input type="checkbox" checked onchange="toggleLayer('p16_moldura', this.checked)"></div>
+                        </div>
                     </div>
                 `;
             } else if (tab === 'basemaps') {
